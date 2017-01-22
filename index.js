@@ -4,18 +4,19 @@ var multer = require("multer");
 var logger = require("morgan");
 var path = require('path');
 var settings = require('./settings.js');
-// var bodyParser = require("body-parser");
-// var fs = require('fs');
 
 // MAKE EXPRESS APP
 var app = express();
 var server = require('http').createServer(app);
 
+//PORT
+var port = process.env.PORT || 8080;
+
 // LOGGER, only log error responses
 app.use(logger("dev"));
 
 // GETS
-app.get("/status", function(req,res){
+app.get("/", function(req,res){
 	res.send("StaticMail is running...");
 });
 
@@ -127,6 +128,6 @@ app.use(function (err, req, res, next) {
 });
 
 // Listen for an application request on port 8081
-server.listen(8081, function () {
-  console.log('Nodejs app listening on http://127.0.0.1:8081/');
+server.listen(port, function () {
+  console.log('StaticMail listening on port: '+port);
 });
