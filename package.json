@@ -1,0 +1,25 @@
+{
+  "name": "Static-Email",
+  "version": "1.0.0",
+  "description": "Sending emails via mailgun.com from static website forms.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index"
+  },
+  "dependencies": {
+    "express": "latest",
+    "multer": "^1.2.1",
+    "morgan": "latest",
+    "mailgun-js": "latest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "TBD"
+  },
+  "keywords": [
+    "nodejs",
+    "mailgun"
+  ],
+  "author": "pGuerrerox",
+  "license": "MIT"
+}
