@@ -4,21 +4,34 @@ var multer = require("multer");
 var logger = require("morgan");
 var path = require('path');
 var settings = require('./settings.js');
+reCAPTCHA=require('recaptcha2');
+
 
 // MAKE EXPRESS APP
 var app = express();
 var server = require('http').createServer(app);
 
+
 //PORT
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 8081;
+
 
 // LOGGER, only log error responses
 app.use(logger("dev"));
+
+
+// reCAPTCHA
+recaptcha=new reCAPTCHA({
+  siteKey:settings.siteKey,
+  secretKey: settings.secretKey
+});
+
 
 // GETS
 app.get("/", function(req,res){
 	res.send("StaticMail is running...");
 });
+
 
 // MULTER multipart/form-data handler
 var uploadFile = multer({
@@ -29,11 +42,9 @@ var uploadFile = multer({
 		var extname = filetypes.test(path.extname(file.originalname).toLowerCase());
 
 		if (mimetype && extname) {
-			// console.log(mimetype, extname);
 			return cb(null, true);
 		}
 		cb(null, false);
-		// console.log('error, no es pdf');
 	},
 	// sizeLimit config
 	limits: {
@@ -42,6 +53,7 @@ var uploadFile = multer({
 		files: 1,
 	},
 });
+
 
 // POST JEMAZAR.COM/CONTACTO
 app.post("/jemazar-contacto", uploadFile.single(), function(req,res){
@@ -62,15 +74,26 @@ app.post("/jemazar-contacto", uploadFile.single(), function(req,res){
     '<span>Mensaje: </span>'+req.body.mensaje+'<br />'+
     '</div></div></body></html>'
   };
-	mailgun.messages().send(data, function (error, body) {
-		// console.log(data);
-    if(!error){
-			res.redirect('http://jemazar.com/pages/form-status-ok.html');
-		}
-		// else
-		// 	res.redirect('http://jemazar.com/pages/form-status-error.html');
+	recaptcha.validate(req.body["g-recaptcha-response"])
+  .then(function(){
+    // valid
+    console.log("reCAPTCHA valid");
+    mailgun.messages().send(data, function (error, body) {
+      if(!error){
+        console.log("e-mail sended");
+        res.redirect('http://jemazar.com/pages/form-status-ok.html');
+        res.end();
+      }
+    });
+  })
+  .catch(function(errorCodes){
+    // invalid
+    console.log("reCAPTCHA invalid");
+    res.redirect('http://jemazar.com/pages/form-status-error.html');
+    res.end();
   });
 });
+
 
 // POST JEMAZAR.COM/EMPLEO
 app.post("/jemazar-empleo", uploadFile.single('afile'), function(req,res){
@@ -99,33 +122,42 @@ app.post("/jemazar-empleo", uploadFile.single('afile'), function(req,res){
     '<span>Email: </span>'+req.body.email+'<br />'+
     '</div></div></body></html>'
   };
-	mailgun.messages().send(data, function (error, body) {
-		// console.log(data);
-		if(!error){
-			res.redirect('http://jemazar.com/pages/form-status-ok.html');
-		}
-		// else
-		// 	res.redirect('http://jemazar.com/pages/form-status-error.html');
-	});
+  recaptcha.validate(req.body["g-recaptcha-response"])
+  .then(function(){
+    // valid
+    console.log("reCAPTCHA valid");
+    mailgun.messages().send(data, function (error, body) {
+      if(!error){
+        console.log("e-mail sended");
+        res.redirect('http://jemazar.com/pages/form-status-ok.html');
+        res.end();
+      }
+    });
+  })
+  .catch(function(errorCodes){
+    // invalid
+    console.log("reCAPTCHA invalid");
+    res.redirect('http://jemazar.com/pages/form-status-error.html');
+  });
 });
+
 
 // ERROR DISPLAY
 app.use(function (err, req, res, next) {
-	if (err.code === 'LIMIT_FILE_SIZE') {
-		console.log('File is too big');
-		// console.log(err.code);
-		// res.send({ error: 'File is too big' });
-		res.redirect('http://jemazar.com/pages/form-status-error.html');
-		return;
-	}
-	if(err){
-		console.log('Solo PDF');
-		// console.log(err);
-		// res.send({ error: 'Solo PDF' });
-		res.redirect('http://jemazar.com/pages/form-status-error.html');
-	}
-	// Handle any other errors
+  if (err.code === 'LIMIT_FILE_SIZE') {
+    console.log('File is too big');
+    res.redirect('http://jemazar.com/pages/form-status-error.html');
+    res.end();
+    return;
+  }
+  if(err){
+    console.log('Solo PDF');
+    res.redirect('http://jemazar.com/pages/form-status-error.html');
+    res.end();
+  }
+  // Handle any other errors
 });
+
 
 // Listen for an application request on port 8081
 server.listen(port, function () {

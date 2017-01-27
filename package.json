@@ -14,7 +14,9 @@
     "express": "latest",
     "multer": "^1.2.1",
     "morgan": "latest",
-    "mailgun-js": "latest"
+    "mailgun-js": "latest",
+    "recaptcha2": "latest"
+
   },
   "repository": {
     "type": "git",
