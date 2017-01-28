@@ -6,19 +6,15 @@ var path = require('path');
 var settings = require('./settings.js');
 reCAPTCHA=require('recaptcha2');
 
-
 // MAKE EXPRESS APP
 var app = express();
 var server = require('http').createServer(app);
 
-
 //PORT
 var port = process.env.PORT || 8081;
 
-
 // LOGGER, only log error responses
 app.use(logger("dev"));
-
 
 // reCAPTCHA
 recaptcha=new reCAPTCHA({
@@ -26,12 +22,10 @@ recaptcha=new reCAPTCHA({
   secretKey: settings.secretKey
 });
 
-
 // GETS
 app.get("/", function(req,res){
 	res.send("StaticMail is running...");
 });
-
 
 // MULTER multipart/form-data handler
 var uploadFile = multer({
@@ -54,7 +48,6 @@ var uploadFile = multer({
 	},
 });
 
-
 // POST JEMAZAR.COM/CONTACTO
 app.post("/jemazar-contacto", uploadFile.single(), function(req,res){
 	var api_key = settings.api_key;
@@ -62,7 +55,7 @@ app.post("/jemazar-contacto", uploadFile.single(), function(req,res){
   var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
 	var data = {
 		from: settings.from, //replace with your SMTP Login ID
-		to: settings.toTest, //recipients email
+		to: settings.to_1, //recipients email
 		subject: req.body.tema,
 		html:    '<html>'+
     '<head>    <style>      .content{  width:600px;  margin:0 auto;  padding:15px;  background-color:#003399;  box-shadow: 0 0 15px #000 ;}    h1, h3{  text-align:center;  color:#ffffff;}    p{  text-align:center;  margin:30px 60px;  color: #ffffff;}    a{  background-color:#ffffff;  color:#003399;  font-weight:bold;  padding: 3px}    a:hover{   background-color:#000;}    .info{  width:70%;  margin:20px auto 20px auto;  padding:25px;  background-color:#eee;  }    span{  display:inline-block;  margin:0 auto;  font-weight: bold;  padding:5px 10px 5px 100px;  }  </style></head>'+
@@ -94,7 +87,6 @@ app.post("/jemazar-contacto", uploadFile.single(), function(req,res){
   });
 });
 
-
 // POST JEMAZAR.COM/EMPLEO
 app.post("/jemazar-empleo", uploadFile.single('afile'), function(req,res){
   var api_key = settings.api_key;
@@ -112,7 +104,7 @@ app.post("/jemazar-empleo", uploadFile.single('afile'), function(req,res){
   });
   var data = {
 		from: settings.from, //replace with your SMTP Login ID
-		to: settings.toTest, //recipients email
+		to: settings.to_2, //recipients email
     subject: 'Curriculum Vitae (CV) de '+req.body.name,
 		attachment: attch,
 		html:    '<html>'+
@@ -141,7 +133,6 @@ app.post("/jemazar-empleo", uploadFile.single('afile'), function(req,res){
   });
 });
 
-
 // ERROR DISPLAY
 app.use(function (err, req, res, next) {
   if (err.code === 'LIMIT_FILE_SIZE') {
@@ -157,7 +148,6 @@ app.use(function (err, req, res, next) {
   }
   // Handle any other errors
 });
-
 
 // Listen for an application request on port 8081
 server.listen(port, function () {
