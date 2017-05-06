@@ -142,12 +142,74 @@ app.use(function (err, req, res, next) {
     return;
   }
   if(err){
+    console.log(from, to);
     console.log('Solo PDF');
     res.redirect('http://jemazar.com/pages/form-status-error.html');
     res.end();
   }
   // Handle any other errors
 });
+
+// POST PREMIUMHEALTHCAREPC.COM
+app.post("/premiumhealth-contacto", uploadFile.single(), function(req,res){
+	var api_key = settings.api_key;
+  var domain = settings.domain;
+  var mailgun = require('mailgun-js')({apiKey: api_key, domain: domain});
+	var data = {
+		from: settings.from1, //replace with your SMTP Login ID
+		to: settings.to_3, //recipients email
+		subject: req.body.asunto,
+		html:
+    '<html>'+
+    '<head>'+
+    '<style>'+
+    '.content {      max-width: 600px;      margin: 20px auto;      padding: 15px;      background-color: #b8c0c2;     -webkit-box-shadow: 0 0 15px #000; box-shadow: 0 0 15px #000;    }'+
+    '.content img{      max-width: 250px;      display: block;      margin: 0 auto;      padding: 25px 5px;    }'+
+    'h1,    h3 {      text-align: center;      color: #043673;    }'+
+    'p {      text-align: center;      margin: 30px 60px;      color: #043673;      font-size:18px;    }'+
+    'a {      color: #043673;      font-weight: bold;      padding: 3px    }'+
+    'table{      max-width: 600px;      margin: 10px auto;      padding: 5px 30px;      background-color: #ffffff;    }'+
+    'table th{     font-weight:bold;     padding: 5px 10px;     text-align: right;   }'+
+    'table td{     text-align: left;   }'+
+    '</style>'+
+    '</head>'+
+    '<body>'+
+    '<div class="content">'+
+    '<h1>Has recibido un mensaje!</h1>'+
+    '<p>Este mensaje proviene desde el formulario de contacto en <a href="http://premiumhealthcarepc.com">premiumhealthcarepc.com</a></p>'+
+    '<br />'+
+    '<h3><b>Informacion del Formulario</b></h3>'+
+    '<table>'+
+    '<tr>        <th>Name:</th>        <td>'+req.body.name+'</td>      </tr>'+
+    '<tr>        <th>Email:</th>        <td>'+req.body.email+'</td>      </tr>'+
+    '<tr>        <th>Subject:</th>        <td>'+req.body.asunto+'</td>      </tr>'+
+    '<tr>        <th>Message:</th>        <td>'+req.body.mensaje+'</td>      </tr>'+
+    '</table>'+
+    '</div>'+
+    '</body>'+
+    '</html>'
+  };
+
+	recaptcha.validate(req.body["g-recaptcha-response"])
+  .then(function(){
+    // valid
+    console.log("reCAPTCHA valid");
+    mailgun.messages().send(data, function (error, body) {
+      if(!error){
+        console.log("e-mail sended");
+        res.redirect('http://localhost:4000/pages/form-ok.html');
+        res.end();
+      }
+    });
+  })
+  .catch(function(errorCodes){
+    // invalid
+    console.log("reCAPTCHA invalid");
+    res.redirect('http://localhost:4000/pages/form-error.html');
+    res.end();
+  });
+});
+
 
 // Listen for an application request on port 8081
 server.listen(port, function () {
