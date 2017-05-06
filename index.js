@@ -197,7 +197,7 @@ app.post("/premiumhealth-contacto", uploadFile.single(), function(req,res){
     mailgun.messages().send(data, function (error, body) {
       if(!error){
         console.log("e-mail sended");
-        res.redirect('http://localhost:4000/pages/form-ok.html');
+        res.redirect('http://premiumhealthcarepc.com/pages/form-ok.html');
         res.end();
       }
     });
@@ -205,7 +205,7 @@ app.post("/premiumhealth-contacto", uploadFile.single(), function(req,res){
   .catch(function(errorCodes){
     // invalid
     console.log("reCAPTCHA invalid");
-    res.redirect('http://localhost:4000/pages/form-error.html');
+    res.redirect('http://premiumhealthcarepc.com/pages/form-error.html');
     res.end();
   });
 });
