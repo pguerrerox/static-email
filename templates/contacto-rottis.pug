@@ -1,0 +1,53 @@
+html
+  head
+    style.
+      .content {
+      width: 600px;
+      margin: 0 auto;
+      padding: 15px;
+      background-color: #003399;
+      box-shadow: 0 0 15px #000;
+      }
+      h1,
+      h3 {
+        text-align: center;
+        color: #ffffff;
+      }
+      p {
+        text-align: center;
+        margin: 30px 60px;
+        color: #ffffff;
+      }
+      a {
+        background-color: #ffffff;
+        color: #003399;
+        font-weight: bold;
+        padding: 3px
+      }
+      a:hover {
+        background-color: #000;
+      }
+      .info {
+        width: 70%;
+        margin: 20px auto 20px auto;
+        padding: 25px;
+        background-color: #eee;
+      }
+      span {
+        display: inline-block;
+        margin: 0 auto;
+        font-weight: bold;
+        padding: 5px 10px 5px 100px;
+      }
+  body
+    div(class='content')
+      h1 Has recibido un mensaje
+      p Este mensaje proviene desde <a href="http://jemazar.com/pages/contacto.html">jemazar.com/contacto</a>, contiene datos introducidos por un usuario en el <b>formulario de contacto</b>
+      h3 Informacion del Formulario
+      div(class='info')
+        span Nombre: #{nombre}
+        span Email: #{email}
+        span Ciudad: #{ciudad}
+        span Asunto: #{asunto}
+        span tema: #{tema}
+        span Mensaje: #{mensaje}

@@ -1,22 +1,21 @@
 {
-  "name": "Static-Email",
-  "version": "1.0.0",
+  "name": "static-email",
+  "version": "2.0.0",
   "description": "Sending emails via mailgun.com from static website forms.",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "node index"
-  },
-  "engines": {
-    "node": "6.11.1",
-    "npm": "3.x"
+    "start": "nodemon app.js"
   },
   "dependencies": {
+    "consolidate": "^0.15.1",
     "express": "latest",
-    "multer": "^1.2.1",
-    "morgan": "latest",
+    "localenv": "^0.2.2",
     "mailgun-js": "latest",
+    "morgan": "latest",
+    "multer": "^1.2.1",
+    "nodemon": "^2.0.1",
+    "pug": "^2.0.4",
     "recaptcha2": "latest"
-
   },
   "repository": {
     "type": "git",
