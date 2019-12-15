@@ -5,15 +5,17 @@ require('localenv');
 let express = require('express');
 let mailgun = require('mailgun-js');
 
-
+// setup variables
 let setup = require('./core/setup');
+
+// routes
 let gui = require('./routes/gui');
 let contacto = require('./routes/contacto');
+let empleo = require('./routes/empleo');
 
 // express app start
 let app = express();
 app.use(express.urlencoded({extended: true}));
-
 let port = process.env.PORT || 8081;
 app.listen(port, function(){
   console.log(`App is listening on port: ${port}`);

@@ -1,53 +1,76 @@
 html
   head
     style.
+      body {
+        display: block;
+        width: 85%;
+        margin: 50px auto;
+        background-color: #fff;
+      }
       .content {
-      width: 600px;
-      margin: 0 auto;
-      padding: 15px;
-      background-color: #003399;
-      box-shadow: 0 0 15px #000;
+        width: 100%;
+        min-width: 500px;
+        margin: 0 auto;
+        background-color: #2d2d2d;
+        box-shadow: 0 0 10px #000;
+        }
+      .inner {
+        width: 90%;
+        padding: 35px;
+        margin: 0 auto;
       }
-      h1,
-      h3 {
-        text-align: center;
-        color: #ffffff;
+      .content img {
+        display: block;
+        width: 250px;
+        margin: 0 auto;
       }
-      p {
+      h1, h2 {
         text-align: center;
-        margin: 30px 60px;
-        color: #ffffff;
+        color: #f1f1f1;
+      }
+      hr {
+        border: 1px solid #c00;
+        width: 90%;
+        margin: 30px auto;
       }
       a {
-        background-color: #ffffff;
-        color: #003399;
+        color: #c00;
+        text-decoration: none;
         font-weight: bold;
-        padding: 3px
-      }
-      a:hover {
-        background-color: #000;
+        padding: 1px 2px;
       }
       .info {
-        width: 70%;
-        margin: 20px auto 20px auto;
-        padding: 25px;
+        width: 90%;
+        margin: 20px auto;
+        padding: 25px 0;
         background-color: #eee;
       }
-      span {
-        display: inline-block;
+      ul li {
+        list-style: none;
         margin: 0 auto;
+        padding: 10px 0;
+      }
+      li:before{
+        content: "> ";
+      }
+      li span{
         font-weight: bold;
-        padding: 5px 10px 5px 100px;
       }
   body
-    div(class='content')
-      h1 Has recibido un mensaje
-      p Este mensaje proviene desde <a href="http://jemazar.com/pages/contacto.html">jemazar.com/contacto</a>, contiene datos introducidos por un usuario en el <b>formulario de contacto</b>
-      h3 Informacion del Formulario
-      div(class='info')
-        span Nombre: #{nombre}
-        span Email: #{email}
-        span Ciudad: #{ciudad}
-        span Asunto: #{asunto}
-        span tema: #{tema}
-        span Mensaje: #{mensaje}
+    .content
+      .inner
+        img(src="https://rottisrd.com.do/_nuxt/img/a4dbd6c.png", alt='logo')
+        h1
+          | Has recibido un mensaje desde:
+          br
+          a(href='http://www.rottisrd.com.do/contacto') www.rottisrd.com.do/contacto
+          hr
+          h1 Informacion del Formulario
+        .info
+          ul
+            li Nombre: <span>#{nombre}
+            li Email: <span>#{email}
+            li Ciudad: <span>#{ciudad}
+            li Asunto: <span>#{asunto}
+            li Tema: <br> <span>#{tema}
+            li Mensaje: <br> <span>#{mensaje}
