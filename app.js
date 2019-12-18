@@ -28,4 +28,5 @@ let mailgunCaller = mailgun({apiKey: emailApi, domain: emailDomain});
 
 // routes
 contacto(app, setup, mailgunCaller);
+empleo()
 gui(app);

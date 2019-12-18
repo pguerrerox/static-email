@@ -5,16 +5,17 @@ let pug = require('pug');
 module.exports = function(app, setup, mailgun){
   app.post('/contacto/:website', function(req, res){
     let website = req.params.website;
-    let contactoObj = setup.contacto;
+    let setupObj = setup.contacto;
 
-    if (!contactoObj.hasOwnProperty(website)){
+    if (!setupObj.hasOwnProperty(website)){
       console.log(`Request has been stopped...`)
+      
       //log activity
       return res.send(`${website} no puede ser procesado...`);
     }
 
     console.log(`Request will be process...`);
-    let templatePath = contactoObj[website].template
+    let templatePath = setupObj[website].template
     let template = pug.renderFile(`./templates/${templatePath}.pug`, {
       nombre: req.body.nombre,
       email: req.body.email,
@@ -31,7 +32,7 @@ module.exports = function(app, setup, mailgun){
 
     let data = {
       from: `Formulario de Contacto <${website}@${process.env.EMAIL_DOMAIN}>`,
-      to: contactoObj[website].emailto,
+      to: setupObj[website].emailto,
       subject: req.body.asunto,
       html: template,
     }
