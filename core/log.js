@@ -3,52 +3,53 @@
 // libraries
 let fs = require('fs');
 
-// initial values
-let activityLog = '../logs/cabeza.json';
-let obj = {
-  activityLog: []
-}
-
-// function to create the log file
-// path: String
-// iniData: Object
-const createLog = function(path, iniData){
-  console.log(`Creating/Updating file... ${path}`);
-  let data = JSON.stringify(iniData);
-  fs.writeFileSync(path, data, 'utf8', (err) => {
-    if (err) throw err;
-  });
-  console.log('File was created/updated...');
-}
-
-// function to update the log file
-// path: String
-// newData: Object
-const updateLog = function(path, newData){
-  console.log('Verificando si el archivo existe..');
-
-  // condition: if file doesnt exist --create a new file, otherwise update existing file.
-  if(!fs.existsSync(path)){
-    console.log('File doesnt exist');
-    createLog(path, newData)
+module.exports = function(path, data){
+  // data validation
+  if (!(typeof(path) === "string" && typeof(data) === "object")){
+    let err = Error('Attribute type error')
+    return console.log(err);
   }
-  console.log('File exists... old info below')
 
-  // update file's logic
-  let currentData = fs.readFileSync(path, 'utf8', (err, data) => {
-    if (err) throw err;
-  });
-  
-  // proccessing current data and pushing new data
-  let objData = JSON.parse(currentData);
-  objData.activityLog.push(newData);
-  let strData = JSON.stringify(objData);
+  console.log('verifying file\'s existence...')
+  if(!fs.existsSync(path)){
+    console.log('file doesnt exist, creating log file...');
 
-  //creating file with updated data...
-  createLog(path, strData);
+    // initial values
+    let data = {
+      activityLog: []
+    }
+    
+    let iniData = JSON.stringify(data);
+    fs.writeFileSync(path, iniData, 'utf8', (err) => {
+      if (err) throw err;
+    });
+
+    console.log('the log was created...');
+  } else {
+    console.log('file exist, updating log file...');
+
+    // reading current data in file
+    let currentData = fs.readFileSync(path, 'utf8', (err, data) => {
+      if (err) throw err;
+    });
+
+    let obj = JSON.parse(currentData);
+    obj.activityLog.push(data);
+    let newData = JSON.stringify(obj);
+
+    // updating file with new data...
+    fs.writeFileSync(path, newData, 'utf8', (err) => {
+      if (err) throw err;
+    });
+    console.log('the log was updated...')
+  }
 }
 
-// Data Scheme
+// Attributes
+// Path[string] = location of the log file
+// Data[object] = information to add to the logging file scheme below
+// --------------
+// data scheme -- (key : type)
 // {
 //   "activityLog":[
 //   {

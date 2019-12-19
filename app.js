@@ -7,6 +7,7 @@ let mailgun = require('mailgun-js');
 
 // setup variables
 let setup = require('./core/setup');
+let logging = require('./core/log');
 
 // routes
 let gui = require('./routes/gui');
@@ -28,5 +29,5 @@ let mailgunCaller = mailgun({apiKey: emailApi, domain: emailDomain});
 
 // routes
 contacto(app, setup, mailgunCaller);
-empleo()
+// empleo();
 gui(app);
