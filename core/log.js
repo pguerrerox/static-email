@@ -3,60 +3,59 @@
 // libraries
 let fs = require('fs');
 
-let activityLog = '../logs/cabeza.txt';
+// initial values
+let activityLog = '../logs/cabeza.json';
+let obj = {
+  activityLog: []
+}
 
-let toWrite = [
-  {
-    uid: "asdf123",
-    number: "001",
-    date: "",
-    status: "ok",
-    emailTo: "pguerrerox@gmail.com",
-  },
-];
-
-// function to create file
-const createLog = function(path, data){
-  console.log(`Creating file... ${path}`);
-  fs.writeFile(path, data, (err) => {
+// function to create the log file
+// path: String
+// iniData: Object
+const createLog = function(path, iniData){
+  console.log(`Creating/Updating file... ${path}`);
+  let data = JSON.stringify(iniData);
+  fs.writeFileSync(path, data, 'utf8', (err) => {
     if (err) throw err;
-    console.log('File was created...');
   });
+  console.log('File was created/updated...');
 }
 
-// function to update file
-const updateLog = function(path, data){
-  console.log(`Updating file... ${path}`);
-  console.log(path);
-  console.log(data);
+// function to update the log file
+// path: String
+// newData: Object
+const updateLog = function(path, newData){
   console.log('Verificando si el archivo existe..');
-  let fileExistence = fs.existsSync(path);
-  console.log(fileExistence);
 
-  // fs.readFile(path, (err, data) => {
-  //   // if err createLog
-  //   if(err){
-  //     console.log('File doest exist.. info below...');
-  //     console.log(path);
-  //     console.log(this.data);
-  //   } else {
-  //     console.log(`The file exist with data... ${data}`)
-  //   }
-  //   // else updatelog
-  // });
+  // condition: if file doesnt exist --create a new file, otherwise update existing file.
+  if(!fs.existsSync(path)){
+    console.log('File doesnt exist');
+    createLog(path, newData)
+  }
+  console.log('File exists... old info below')
 
+  // update file's logic
+  let currentData = fs.readFileSync(path, 'utf8', (err, data) => {
+    if (err) throw err;
+  });
+  
+  // proccessing current data and pushing new data
+  let objData = JSON.parse(currentData);
+  objData.activityLog.push(newData);
+  let strData = JSON.stringify(objData);
+
+  //creating file with updated data...
+  createLog(path, strData);
 }
 
-// createLog(activityLog, "dimelo palomon");
-updateLog(activityLog, 'klk');
-
-// let x = fs.readFile(activityLog, 'utf8', function(err, data ){
-//   if (!err){
-//     console.log('File was updated...');
-//   } else {
-//     console.log('File was created... ')
+// Data Scheme
+// {
+//   "activityLog":[
+//   {
+//     "uid": uniqueID,
+//     "number": number (ex. 0001),
+//     "date": date,
+//     "status": string,
+//     "emailTo": string
 //   }
-// })
-// x;
-
-module.exports = function(){}
+// ]}

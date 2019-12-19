@@ -1,5 +1,6 @@
 'use strict'
 
+// libraries
 let pug = require('pug');
 
 module.exports = function(app, setup, mailgun){
@@ -9,7 +10,7 @@ module.exports = function(app, setup, mailgun){
 
     if (!setupObj.hasOwnProperty(website)){
       console.log(`Request has been stopped...`)
-      
+
       //log activity
       return res.send(`${website} no puede ser procesado...`);
     }
