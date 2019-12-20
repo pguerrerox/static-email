@@ -13,13 +13,13 @@ html
         margin: 0 auto;
         background-color: #2d2d2d;
         box-shadow: 0 0 10px #000;
-        }
+      }
       .inner {
         width: 90%;
         padding: 35px;
         margin: 0 auto;
       }
-      .content img {
+      .content img{
         display: block;
         width: 250px;
         margin: 0 auto;
@@ -56,21 +56,24 @@ html
       li span{
         font-weight: bold;
       }
+      .attach{
+        color: #fff;
+        text-align: left;
+        font-size: 1rem;
+      }
   body
     .content
       .inner
-        img(src="https://rottisrd.com.do/_nuxt/img/a4dbd6c.png", alt='logo')
+        img(src='https://rottisrd.com.do/offline/logotipo.png' alt='logo')
         h1
           | Has recibido un mensaje desde:
           br
           a(href='http://www.rottisrd.com.do/contacto') www.rottisrd.com.do/contacto
           hr
-          h1 Informacion del Formulario
+          h1 Formulario de Empleo
         .info
           ul
             li Nombre: <span>#{nombre}
             li Email: <span>#{email}
-            li Ciudad: <span>#{ciudad}
-            li Asunto: <span>#{asunto}
-            li Tema: <br> <span>#{tema}
-            li Mensaje: <br> <span>#{mensaje}
+        .attach
+          p Ver archivo anexo debajo.

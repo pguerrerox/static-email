@@ -4,25 +4,25 @@ module.exports = {
   "contacto": {
     "testing":{
       "emailto": process.env.TESTING_EMAIL,
-      "template": "contacto-testing"
+      "template": "testing/contacto-testing"
     },
     "rottis": {
       "emailto": process.env.ROTTIS_CONTACTO_EMAIL_TO,
-      "template": "contacto-rottis"
+      "template": "rottis/contacto-rottis"
     },
     "duramente": {
       "emailto": process.env.DURAMENTE_CONTACTO_EMAIL_TO,
-      "template": "contacto-duramente"
+      "template": "duramente/contacto-duramente"
     }
   },
   "empleo": {
     "testing": {
       "emailto": process.env.TESTING_EMAIL,
-      "template": "empleo-testing"
+      "template": "testing/empleo-testing"
     },
     "rottis": {
       "emailto": process.env.ROTTIS_EMPLEO_EMAIL_TO,
-      "template": "empleo-rottis"
+      "template": "rottis/empleo-rottis"
     }
   }
 }
