@@ -1,8 +1,13 @@
 'use strict'
 
+// FORM.js
+// processes all the HTTP-POST requests
+// exports a function (app, setup, mailgun)
+
 // libraries
 let pug = require('pug');
 let upload = require('../core/upload');
+let logging = require('../core/log');
 
 module.exports = function(app, setup, mailgun){
   app.post('/:type/:website', upload.single('attachFile'), function(req, res){

@@ -1,5 +1,16 @@
 'use strict'
 
+// SETUP.js
+// exports an object with 2 main keys; "Contacto" and "Empleo"
+// inside are secundary objects that represents "url :params" valid to be process
+// by the app.
+
+// structure of the secundary objects:
+// "testing":{                               ----> param
+//   "emailto": process.env.TESTING_EMAIL,   ----> email TO 
+//   "template": "testing/contacto-testing"  ----> template to use
+// },
+
 module.exports = {
   "contacto": {
     "testing":{

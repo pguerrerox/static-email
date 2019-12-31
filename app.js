@@ -1,7 +1,7 @@
 'use strict'
 
 // libraries
-require('localenv');
+require('localenv'); // for local development: duplicate .env file, rename to .localenv, setup variables, DONE.
 let express = require('express');
 let mailgun = require('mailgun-js');
 

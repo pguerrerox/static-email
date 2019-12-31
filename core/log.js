@@ -1,16 +1,31 @@
 'use strict'
 
+// LOG.js
+// exports a function (path, data)
+// Path[string] = location of the log file
+// Data[object] = information to add to the logging file scheme below
+// data scheme -- (key : type)
+// {
+//   "activityLog":[
+//   {
+//     "id": number (ex. 0001),
+//     "date": date,
+//     "status": string,
+//     "emailTo": string
+//   }
+// ]}
+
 // libraries
 let fs = require('fs');
 
 module.exports = function(path, data){
   // data validation
   if (!(typeof(path) === "string" && typeof(data) === "object")){
-    let err = Error('Attribute type error')
+    let err = Error('Attribute type error');
     return console.log(err);
   }
 
-  console.log('verifying file\'s existence...')
+  console.log('verifying file\'s existence...');
   if(!fs.existsSync(path)){
     console.log('file doesnt exist, creating log file...');
 
@@ -44,19 +59,3 @@ module.exports = function(path, data){
     console.log('the log was updated...')
   }
 }
-
-// Attributes
-// Path[string] = location of the log file
-// Data[object] = information to add to the logging file scheme below
-// --------------
-// data scheme -- (key : type)
-// {
-//   "activityLog":[
-//   {
-//     "uid": uniqueID,
-//     "number": number (ex. 0001),
-//     "date": date,
-//     "status": string,
-//     "emailTo": string
-//   }
-// ]}

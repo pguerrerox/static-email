@@ -1,5 +1,8 @@
 'use strict'
 
+// UPLOAD.js
+// exports a multer function with proper filter for .pdf files and size limit
+
 // libraries
 let multer = require('multer');
 let path = require('path');
