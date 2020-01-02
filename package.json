@@ -7,11 +7,9 @@
     "start": "nodemon app.js"
   },
   "dependencies": {
-    "consolidate": "^0.15.1",
     "express": "latest",
     "localenv": "^0.2.2",
     "mailgun-js": "latest",
-    "morgan": "latest",
     "multer": "^1.2.1",
     "nodemon": "^2.0.1",
     "pug": "^2.0.4",
