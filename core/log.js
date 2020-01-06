@@ -1,8 +1,8 @@
 'use strict'
 
 // LOG.js
-// exports a function (path, data)
-// Path[string] = location of the log file
+// exports a function (data)
+// Name[string] = name of the file to be created or updated
 // Data[object] = information to add to the logging file scheme below
 // data scheme -- (key : type)
 // {
@@ -10,15 +10,17 @@
 //   {
 //     "id": number (ex. 0001),
 //     "date": date,
-//     "status": string,
-//     "emailTo": string
+//     "website": string,
+//     "err": string
 //   }
 // ]}
 
 // libraries
 let fs = require('fs');
 
-module.exports = function(path, data){
+module.exports = function(name, data){
+  let path = `../logs/${name}.json`;
+
   // data validation
   if (!(typeof(path) === "string" && typeof(data) === "object")){
     let err = Error('Attribute type error');
@@ -30,11 +32,11 @@ module.exports = function(path, data){
     console.log('file doesnt exist, creating log file...');
 
     // initial values
-    let data = {
+    let dataBase = {
       activityLog: []
     }
-    
-    let iniData = JSON.stringify(data);
+    dataBase.activityLog.push(data);
+    let iniData = JSON.stringify(dataBase);
     fs.writeFileSync(path, iniData, 'utf8', (err) => {
       if (err) throw err;
     });
