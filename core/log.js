@@ -11,7 +11,7 @@
 //     "id": number (ex. 0001),
 //     "date": date,
 //     "website": string,
-//     "err": string
+//     "err": string / object
 //   }
 // ]}
 
@@ -27,7 +27,7 @@ module.exports = function(name, data){
     let err = Error('Attribute type error');
     return console.log(err);
   }
-  console.log('verifying file\'s existence...');
+  // console.log('verifying file\'s existence...');
   if(!fs.existsSync(path)){
     // initial values
     // console.log('file doesnt exist, creating log file...');
@@ -55,4 +55,5 @@ module.exports = function(name, data){
     });
     // console.log('the log was updated...')
   }
+  return console.log(`The log was updated...`)
 }

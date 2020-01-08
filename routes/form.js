@@ -5,11 +5,11 @@
 // exports a function (app, setup, mailgun)
 
 // libraries
-let pug = require('pug');
-let upload = require('../core/upload');
 let recaptcha = require('../core/recaptcha');
-let aux = require('../core/aux');
 let logging = require('../core/log');
+let upload = require('../core/upload');
+let pug = require('pug');
+let aux = require('../core/aux');
 
 module.exports = function(app, setup, mailgun){
   app.post('/:type/:website', upload.single('attachFile'), function(req, res){
@@ -118,8 +118,8 @@ module.exports = function(app, setup, mailgun){
           });
         }
       })
-    // })
-    // .catch(function(err){
+    })
+    .catch(function(err){
       logging('log', aux.dataBuilder(website, typePOST, err));
       return res.render('status' ,{
         statusPic: '/red.png',

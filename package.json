@@ -4,14 +4,15 @@
   "description": "Sending emails via mailgun.com from static website forms.",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node app.js",
+    "start-nodemon": "nodemon app.js"
   },
   "dependencies": {
     "express": "latest",
     "localenv": "^0.2.2",
     "mailgun-js": "latest",
     "multer": "^1.2.1",
-    "nodemon": "^2.0.1",
+    "nodemon": "^2.0.2",
     "pug": "^2.0.4",
     "recaptcha2": "latest"
   },
@@ -24,6 +25,5 @@
     "mailgun"
   ],
   "author": "pGuerrerox",
-  "license": "MIT",
-  "devDependencies": {}
+  "license": "MIT"
 }
