@@ -1,0 +1,45 @@
+html
+  head
+    style.
+      body {
+        margin: 0;
+        width: 100%;
+        background-color: #f1f1f9;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        }
+      .content {
+        background-color: #fff;
+        border: 2px solid #ccc;
+        width: 50%;
+        text-align: center;
+        margin: 50px;
+        padding: 50px;
+      }
+      img {
+        width: 150px;
+      }
+      .content a {
+        color: #4ca;
+        border: 1px solid #4ca;
+        padding: 5px 20px;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+      .footer {
+        position: absolute;
+        bottom: 0%;
+      }
+      .foo {
+        color: red;
+      }
+  body
+    .content
+      img(src=`${statusPic}`)
+      hr
+      h1 #{statusMsg}
+      a(href=`${redirect}`) Volver a pagina original
+    .footer
+      p powered by <a class="foo" href="http://www.duramente.com"> StaticMail</a>

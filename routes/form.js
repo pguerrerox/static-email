@@ -7,44 +7,48 @@
 // libraries
 let pug = require('pug');
 let upload = require('../core/upload');
-let logging = require('../core/log');
 let recaptcha = require('../core/recaptcha');
+let aux = require('../core/aux');
+let logging = require('../core/log');
 
 module.exports = function(app, setup, mailgun){
   app.post('/:type/:website', upload.single('attachFile'), function(req, res){
-    
+
     recaptcha.validate(req.body["g-recaptcha-response"])
     .then(function(){
-      console.log("captcha valid");
-
       // ex. rottisrd.com/contacto/rottis
       // ex. rottisrd.com/empleo/rottis
       let typePOST = req.params.type;
       let website = req.params.website;
       let setupObj = setup[typePOST];
-      
+      let myErr;
+      let referrer = req.body.referrer; //redirect location send from form...
+
       // validating first param
       if (!setup.hasOwnProperty(typePOST)){
-        console.log(`request stopped, \/${typePOST} is not a valid url...`);
-        // new error...
-        // log fail attempt...
-        // redirect back to source with error msg...
-        return res.send(`request stopped, \/${typePOST} is not a valid url...`);
+        myErr = Error(`invalid param: \'${typePOST}\'`);
+        logging('log', aux.dataBuilder(website, typePOST, myErr.message));
+        return res.render('status', {
+          statusPic: '/red.png',
+          statusMsg: myErr,
+          redirect: referrer
+        });
       }
       // validating second param
       else if (!setupObj.hasOwnProperty(website)){
-        console.log(`request stopped, \/${website} is not a valid url...`)
-        //new error...
-        //log fail attempt...
-        //respond to contact page with error message...
-        return res.send(`request stopped, \/${website} is not a valid url...`);
+        myErr = Error(`invalid param: \'${website}\'`)
+        logging('log', aux.dataBuilder(website, typePOST, myErr.message));
+        return res.render('status' ,{
+          statusPic: '/red.png',
+          statusMsg: myErr,
+          redirect: referrer
+        });
       }
-  
-      console.log(`the request will be process...`);
+
+      // processing request
       let templatePath = setupObj[website].template;
       let template = null;
       let data = {};
-  
       // template and data for /contacto
       if(typePOST === "contacto"){
         template = pug.renderFile(`./templates/${templatePath}.pug`, {
@@ -71,11 +75,14 @@ module.exports = function(app, setup, mailgun){
         let attch = null;
         if (req.file === undefined ){
           attch = null;
-          res.send('err')
-          return console.log('Missing Attachent File... not email send...');
-          // new error, missing attachment, stop execution
-          // redirect and respond with error
-        } 
+          myErr = Error('missing attachment');
+          logging('log',aux.dataBuilder(website, typePOST, myErr.message))
+          return res.render('status' ,{
+            statusPic: '/red.png',
+            statusMsg: myErr,
+            redirect: referrer
+          });
+        }
         else {
           attch = new mailgun.Attachment({
             data: req.file.buffer,
@@ -92,25 +99,33 @@ module.exports = function(app, setup, mailgun){
           attachment: attch,
         }
       }
-      
+      // processing email
       mailgun.messages().send(data, function(err, body){
         if (err){
-          //log error...
-          console.log(err);
+          logging('log', aux.dataBuilder(website, typePOST, err));
+          return res.render('status' ,{
+            statusPic: '/red.png',
+            statusMsg: err,
+            redirect: referrer
+          });
         } else{
-          //log email status...
-          console.log(`correo enviado a ${website}`);
+          myErr = Error('message sended successfully!');
+          logging('log', aux.dataBuilder(website, typePOST, myErr.message));
+          return res.render('status' ,{
+            statusPic: '/green.png',
+            statusMsg: myErr,
+            redirect: referrer
+          });
         }
       })
-      
-      //redirect and respond to source with email status
-      console.log(data.from);
-      res.send(`email was send to ${data.to}`);
-      res.end();
-    })
-    .catch(function(){
-      console.log("no captcha")
-      // log try
+    // })
+    // .catch(function(err){
+      logging('log', aux.dataBuilder(website, typePOST, err));
+      return res.render('status' ,{
+        statusPic: '/red.png',
+        statusMsg: err,
+        redirect: referrer
+      });
     });
   })
 }
