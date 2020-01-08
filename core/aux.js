@@ -16,30 +16,30 @@ function fecha(){
   ano = d.getFullYear();
   mes = leadingZero((d.getMonth()+1),2);
   dia = leadingZero(d.getDate(),2);
-  hora = d.getHours();
-  minuto = d.getMinutes();
-  segundos = d.getSeconds();
+  hora = leadingZero(d.getHours(),2);
+  minuto = leadingZero(d.getMinutes(),2);
+  segundos = leadingZero(d.getSeconds(),2);
   milisegundos = d.getMilliseconds();
   
   const dateString = `${ano}-${mes}-${dia}T${hora}:${minuto}:${segundos}.${milisegundos}Z`;
-  return new Date(dateString);
+  return dateString;
 };
 
-function enumerate(){
-  const init = 0;
-  function plusOne(init){
-    return init = (init + 1)
+let enumerate = function(){
+  let init = 0;
+  return function(){
+    init ++;
+    return leadingZero(init, 4);
   }
-  return leadingZero((plusOne(init)), 4);
-};
+}()
 
 module.exports = {
   dataBuilder: function(website, type, status){
     return {
       "id" : enumerate(),
       "fecha" : fecha(),
-      "website" : website,
       "type": type,
+      "website" : website,
       "status" : status
     }
   }

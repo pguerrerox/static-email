@@ -26,15 +26,23 @@ module.exports = function(app, setup, mailgun){
 
       // validating first param
       if (!setup.hasOwnProperty(typePOST)){
-        myErr = new Error(`invalid \'${typePOST}\' params`);
-        logging('log', aux.dataBuilder(website, typePOST, myErr));
-        return res.send(`something is not right!!`);
+        myErr = Error(`invalid param: \'${typePOST}\'`);
+        logging('log', aux.dataBuilder(website, typePOST, myErr.message));
+        return res.render('status', {
+          statusPic: '/red.png',
+          statusMsg: myErr,
+          redirect: referrer
+        });
       }
       // validating second param
       else if (!setupObj.hasOwnProperty(website)){
-        myErr = new Error(`invalid \'${website}\' params`)
-        logging('log', aux.dataBuilder(website, typePOST, myErr));
-        return res.send(`something is not right!!`);
+        myErr = Error(`invalid param: \'${website}\'`)
+        logging('log', aux.dataBuilder(website, typePOST, myErr.message));
+        return res.render('status' ,{
+          statusPic: '/red.png',
+          statusMsg: myErr,
+          redirect: referrer
+        });
       }
 
       // processing request
@@ -67,10 +75,13 @@ module.exports = function(app, setup, mailgun){
         let attch = null;
         if (req.file === undefined ){
           attch = null;
-
-          myErr = new Error('missing attachment');
-          logging('log',aux.dataBuilder(website, typePOST, myErr))
-          return res.send({error: myErr})
+          myErr = Error('missing attachment');
+          logging('log',aux.dataBuilder(website, typePOST, myErr.message))
+          return res.render('status' ,{
+            statusPic: '/red.png',
+            statusMsg: myErr,
+            redirect: referrer
+          });
         }
         else {
           attch = new mailgun.Attachment({
@@ -92,18 +103,29 @@ module.exports = function(app, setup, mailgun){
       mailgun.messages().send(data, function(err, body){
         if (err){
           logging('log', aux.dataBuilder(website, typePOST, err));
-          return  res.send({})  //object with err info
+          return res.render('status' ,{
+            statusPic: '/red.png',
+            statusMsg: err,
+            redirect: referrer
+          });
         } else{
-          myErr = new Error('send successfully!');
-          logging('log', aux.dataBuilder(website, typePOST, myErr));
-          // respond with success msg....
-          return res.send() ///
+          myErr = Error('message sended successfully!');
+          logging('log', aux.dataBuilder(website, typePOST, myErr.message));
+          return res.render('status' ,{
+            statusPic: '/green.png',
+            statusMsg: myErr,
+            redirect: referrer
+          });
         }
       })
-    })
-    .catch(function(err){
+    // })
+    // .catch(function(err){
       logging('log', aux.dataBuilder(website, typePOST, err));
-      return res.send() ///
+      return res.render('status' ,{
+        statusPic: '/red.png',
+        statusMsg: err,
+        redirect: referrer
+      });
     });
   })
 }

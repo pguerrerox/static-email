@@ -15,6 +15,12 @@ let forms = require('./routes/form');
 // express app start
 let app = express();
 app.use(express.urlencoded({extended: true}));
+app.use(express.static(__dirname + '/public'));
+
+app.set('views', 'views');
+app.set('view engine', 'pug');
+
+
 let port = process.env.PORT || 8081;
 app.listen(port, function(){
   console.log(`App is listening on port: ${port}`);
