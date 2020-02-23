@@ -5,11 +5,11 @@
 // exports a function (app, setup, mailgun)
 
 // libraries
-let recaptcha = require('../core/recaptcha');
-let logging = require('../core/log');
-let upload = require('../core/upload');
-let aux = require('../core/aux');
-let pug = require('pug');
+const recaptcha = require('../core/recaptcha');
+const logging = require('../core/log');
+const upload = require('../core/upload');
+const aux = require('../core/aux');
+const pug = require('pug');
 
 module.exports = function(app, setup, mailgun){
   app.post('/:type/:website', upload.single('attachFile'), function(req, res){
