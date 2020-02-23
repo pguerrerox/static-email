@@ -16,6 +16,9 @@
     "pug": "^2.0.4",
     "recaptcha2": "latest"
   },
+  "nodemonConfig": {
+    "ignore": ["logs"]
+  },
   "repository": {
     "type": "git",
     "url": "TBD"

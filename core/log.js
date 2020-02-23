@@ -25,7 +25,7 @@ module.exports = function(name, data){
   // data validation
   if (!(typeof(path) === "string" && typeof(data) === "object")){
     let err = Error('Attribute type error');
-    return console.log(err);
+    return console.log(err); //throw err???
   }
   // console.log('verifying file\'s existence...');
   if(!fs.existsSync(path)){
@@ -39,7 +39,7 @@ module.exports = function(name, data){
     fs.writeFileSync(path, iniData, 'utf8', (err) => {
       if (err) throw err;
     });
-    // console.log('the log was created...');
+    console.log('the log was created...');
   } else {
     // reading current data in file
     // console.log('file exist, updating log file...');
