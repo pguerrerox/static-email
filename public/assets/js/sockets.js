@@ -1,4 +1,4 @@
-var socket = io.connect('http://localhost');
+var socket = io.connect(window.location.hostname+':'+window.location.port);
 socket.on('news', function (data) {
   // console.log(data);
   document.getElementById('activity').innerHTML = data.activityNumber;
