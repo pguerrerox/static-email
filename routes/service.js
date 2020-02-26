@@ -12,8 +12,9 @@ module.exports = function(app){
     next()
   })
 
-  app.get('/', function(req, res){
+  app.get(['/', '/admin'], function(req, res){
     res.render('service',{
+      param: req.path,
       connectedSites: res.locals.sites,
       activityNumber: res.locals.lengthData,
       successNumber: res.locals.successData

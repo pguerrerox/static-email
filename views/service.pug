@@ -25,10 +25,10 @@ head
       | Send forms (POST request) from static websites without any server-side code or JavaScript.
   // Main
   #main
-    // Second Section
+    // First Section
     section#second.main.special
       header.major
-        h2.center
+        h1.center
           strong Metrics
         p
           | A tiny bit of information about the status of the server... (what else should we display?)
@@ -45,6 +45,17 @@ head
           i.fa.fa-check
           strong#success #{successNumber}
           span Succesful Requests
+    // Second Section
+    if param === '/admin'
+      section#second.main.special
+        header.major
+          h1.center
+            strong Detail Log
+          p
+            | More information about things happening on the background...
+        div
+          span #{param}
+
   // Footer
   footer#footer
     section
@@ -83,13 +94,13 @@ head
             | Pedro Guerrero (pGuerrerox)
       ul.icons
         li
-          a(href='')
+          a(href='http://duramente.com/' target='_blank')
             i.fa.fa-at
         li
-          a(href='')
+          a(href='https://github.com/pguerrerox/static-email' target='_blank')
             i.fa.fa-github
         li
-          a(href='')
+          a(href='https://www.instagram.com/duramente.dev/' target='_blank')
             i.fa.fa-instagram
     p.copyright
       | &copy; Duramente Web Studio
