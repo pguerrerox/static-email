@@ -4,8 +4,8 @@
 // exports a multer function with proper filter for .pdf files and size limit
 
 // libraries
-let multer = require('multer');
-let path = require('path');
+const multer = require('multer');
+const path = require('path');
 
 // multer instance
 module.exports = multer({

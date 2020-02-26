@@ -14,11 +14,17 @@
     "multer": "^1.2.1",
     "nodemon": "^2.0.2",
     "pug": "^2.0.4",
-    "recaptcha2": "latest"
+    "recaptcha2": "latest",
+    "socket.io": "^2.3.0"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "logs"
+    ]
   },
   "repository": {
     "type": "git",
-    "url": "TBD"
+    "url": "https://github.com/pguerrerox/static-email"
   },
   "keywords": [
     "nodejs",

@@ -5,15 +5,14 @@
 // exports a function (app, setup, mailgun)
 
 // libraries
-let recaptcha = require('../core/recaptcha');
-let logging = require('../core/log');
-let upload = require('../core/upload');
-let pug = require('pug');
-let aux = require('../core/aux');
+const recaptcha = require('../core/recaptcha');
+const logging = require('../core/log');
+const upload = require('../core/upload');
+const aux = require('../core/aux');
+const pug = require('pug');
 
 module.exports = function(app, setup, mailgun){
   app.post('/:type/:website', upload.single('attachFile'), function(req, res){
-
     recaptcha.validate(req.body["g-recaptcha-response"])
     .then(function(){
       // ex. rottisrd.com/contacto/rottis
@@ -120,12 +119,19 @@ module.exports = function(app, setup, mailgun){
       })
     })
     .catch(function(err){
-      logging('log', aux.dataBuilder(website, typePOST, err));
-      return res.render('status' ,{
+      logging('log', aux.dataBuilder(req.params.website, req.params.type, err));
+      return res.status(404).render('status' ,{
         statusPic: '/red.png',
         statusMsg: err,
-        redirect: referrer
+        redirect: req.body.referrer
       });
     });
+  })
+
+  app.post('*', function(req, res){
+    res.status(404).render('404',{
+      param: req.params['0'],
+      errorCode: '404'
+    })
   })
 }

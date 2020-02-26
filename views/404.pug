@@ -1,0 +1,88 @@
+doctype html
+//
+  Stellar by HTML5 UP
+  html5up.net | @ajlkn
+  Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+  Modded by pGuerrerox
+head
+  title Static-email
+  meta(charset='utf-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1, user-scalable=no')
+  link(rel='stylesheet' href='assets/css/main.css')
+  link(rel='stylesheet' href='assets/css/font-awesome.min.css')
+  script(src="/socket.io/socket.io.js")
+  script(src='assets/js/sockets.js')
+  noscript
+    link(rel='stylesheet' href='assets/css/noscript.css')
+// Wrapper
+#wrapper
+  // Header
+  header#header.alt
+    span.logo
+      img(src='images/logo.png' alt='')
+    h1 Static-email
+    p
+      | Send forms (POST request) from static websites without any server-side code or JavaScript.
+  // Main
+  #main
+    // Second Section
+    section#second.main.special
+      header.major
+        h1.center
+          strong Invalid request (#{param})
+        p.center
+          | {error code: #{errorCode}}
+  // Footer
+  footer#footer
+    section
+      h2 Build with...
+      ul.actions
+        li
+          a(href='https://nodejs.org/') node.js
+          |  - javascript for the server-side
+        li
+          a(href='https://expressjs.com/') express
+          |  - web framework for Nodejs
+        li
+          a(href='https://github.com/highlycaffeinated/mailgun-js') mailgun-js
+          |  - node.js module for Mailgun
+        li
+          a(href='https://github.com/pugjs/pug') pug
+          |  - template engine
+        li
+          a(href='https://github.com/expressjs/multer') multer
+          |  - middleware for handling multipart/form-data
+        li
+          a(href='https://github.com/defunctzombie/localenv') localenv
+          |  - load environment variables for local
+          |             development
+        li
+          a(href='https://github.com/fereidani/recaptcha2') recaptcha2
+          |  - implementing recaptcha2 easier
+    section
+      h2 Build by...
+      dl.alt
+        dt Where:
+        dd
+          | Duramente
+          dt Who:
+          dd
+            | Pedro Guerrero (pGuerrerox)
+      ul.icons
+        li
+          a(href='http://duramente.com/' target='_blank')
+            i.fa.fa-at
+        li
+          a(href='https://github.com/pguerrerox/static-email' target='_blank')
+            i.fa.fa-github
+        li
+          a(href='https://www.instagram.com/duramente.dev/' target='_blank')
+            i.fa.fa-instagram
+    p.copyright
+      | &copy; Duramente Web Studio
+      br
+      |  Design/Template: 
+      a(href='https://html5up.net') HTML5 UP
+// Scripts
+script(src='assets/js/jquery.min.js')
+script(src='assets/js/main.js')

@@ -1,8 +1,8 @@
 'use strict'
 
 // SETUP.js
-// exports an object with 2 main keys; "Contacto" and "Empleo"
-// inside are secundary objects that represents "url :params" valid to be process
+// exports an object with 2 main keys; "contacto" and "empleo"
+// inside these are secundary objects that represents "url :params" valid to be process
 // by the app.
 
 // structure of the secundary objects:
