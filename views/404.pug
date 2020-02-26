@@ -28,23 +28,10 @@ head
     // Second Section
     section#second.main.special
       header.major
-        h2.center
-          strong Metrics
-        p
-          | A tiny bit of information about the status of the server... (what else should we display?)
-      ul.statistics
-        li.style1
-          i.fa.fa-sitemap
-          strong#sites #{connectedSites}
-          span Sites Connected
-        li.style2
-          i.fa.fa-upload
-          strong#activity #{activityNumber}
-          span Total Requests
-        li.style3
-          i.fa.fa-check
-          strong#success #{successNumber}
-          span Succesful Requests
+        h1.center
+          strong Invalid request (#{param})
+        p.center
+          | {error code: #{errorCode}}
   // Footer
   footer#footer
     section

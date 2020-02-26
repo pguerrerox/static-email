@@ -16,10 +16,27 @@ function dataLength() {
     console.log(err);
   }
 }
-function dataArray() {}
+function dataSuccess() {
+  let data = fs.readFileSync('./logs/log.json', 'utf8', (err, data) => {
+    if (err) throw err;
+  })
+  let objData = JSON.parse(data);
+  let arrayData = objData.activityLog;
+  return arrayData.filter(success => success.status === "message sended successfully!").length
+}
+function dataSites() {
+  let data = require('./setup');
+  let count = 0;
+  for (let x in data.contacto){
+    count ++
+  }
+  return count
+}
 
+dataSites();
 // exports
 module.exports = {
   length: dataLength,
-  array: dataArray
+  success: dataSuccess,
+  sites: dataSites
 }

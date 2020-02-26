@@ -127,4 +127,11 @@ module.exports = function(app, setup, mailgun){
       });
     });
   })
+
+  app.post('*', function(req, res){
+    res.status(404).render('404',{
+      param: req.params['0'],
+      errorCode: '404'
+    })
+  })
 }

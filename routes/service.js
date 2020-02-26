@@ -6,22 +6,24 @@ const prettyData = require('../core/prettyData');
 module.exports = function(app){
   // middleware
   app.use(function (req, res, next) {
-    res.locals.myData = prettyData.length();
+    res.locals.lengthData = prettyData.length();
+    res.locals.successData = prettyData.success();
+    res.locals.sites = prettyData.sites();
     next()
   })
 
-  app.get('*/:admin', function(req, res){
-    // TODO: prepare the view for the ADMIN PART.......
+  app.get('/', function(req, res){
     res.render('service',{
-      activityNumber: res.locals.myData,
-      param: req.params.admin 
+      connectedSites: res.locals.sites,
+      activityNumber: res.locals.lengthData,
+      successNumber: res.locals.successData
     })
   })
 
   app.get('*', function(req, res){
-    // TODO: prepare the view for the REGULAR part......
-    res.render('service',{
-      activityNumber: res.locals.myData 
+    res.status(404).render('404',{
+      param: req.params['0'],
+      errorCode: '404'
     })
   })
 }

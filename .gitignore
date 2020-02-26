@@ -1,10 +1,9 @@
 # folders
 old
-logs
 node_modules
 
 # files
 .env.local
 .DS_Store
 .vscode
-
+/logs/log.json

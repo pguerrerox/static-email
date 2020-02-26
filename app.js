@@ -41,9 +41,14 @@ io.on('connect', (socket) => {})
 fs.watch('./logs/log.json','utf8', (event, filename) => {
   if(event === 'change'){
     console.log(`${filename} was change...`);
-    io.emit('news', {activityNumber: prettyData.length()})
+    io.emit('news', {
+      activityNumber: prettyData.length(),
+      successNumber: prettyData.success(),
+      sites: prettyData.sites()
+    })
   }
 })
+// TODO: separar sites from length y success.....
 
 // routes
 forms(app, setup, mailgunCaller);
