@@ -49,11 +49,11 @@ if(!fs.existsSync(path)){
   fs.writeFileSync(path, firstData, 'utf8', (err) => {
     if (err) throw err;
   });
-  console.log('the log was created...');
+  // console.log('the log was created...');
 }
 fs.watch('./logs/log.json','utf8', (event, filename) => {
   if(event === 'change'){
-    console.log(`${filename} was change...`);
+    // console.log(`${filename} was change...`);
     io.emit('news', {
       activityNumber: prettyData.length(),
       successNumber: prettyData.success(),
