@@ -6,4 +6,4 @@ node_modules
 .env.local
 .DS_Store
 .vscode
-logs/log.json
+*/log.json

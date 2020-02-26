@@ -38,6 +38,19 @@ const mailgunCaller = mailgun({apiKey: emailApi, domain: emailDomain});
 
 // sockets-io
 io.on('connect', (socket) => {})
+
+// starting log file, if it doesnt exist
+let path = './logs/log.json';
+if(!fs.existsSync(path)){
+  let dataBase = {
+    activityLog: []
+  }
+  let firstData = JSON.stringify(dataBase);
+  fs.writeFileSync(path, firstData, 'utf8', (err) => {
+    if (err) throw err;
+  });
+  console.log('the log was created...');
+}
 fs.watch('./logs/log.json','utf8', (event, filename) => {
   if(event === 'change'){
     console.log(`${filename} was change...`);
