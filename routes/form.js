@@ -108,11 +108,12 @@ module.exports = function(app, setup, mailgun){
             redirect: referrer
           });
         } else{
-          myErr = Error('message sended successfully!');
+          myErr = {message: 'message sended successfully!'};
+          console.log(myErr.message);
           logging('log', aux.dataBuilder(website, typePOST, myErr.message));
           return res.render('status' ,{
             statusPic: '/green.png',
-            statusMsg: myErr,
+            statusMsg: myErr.message,
             redirect: referrer
           });
         }

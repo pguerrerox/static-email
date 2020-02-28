@@ -17,18 +17,21 @@
 
 // libraries
 let fs = require('fs');
+let path = require('path');
 
 module.exports = function(name, data){
   // console.log(data);
-  let path = `./logs/${name}.json`;
+  // let filepath = `./logs/${name}.json`;
+  let filepath = path.join(__dirname,'../',`logs/${name}.json`);
+  // console.log(filepath);
 
   // data validation
-  if (!(typeof(path) === "string" && typeof(data) === "object")){
+  if (!(typeof(filepath) === "string" && typeof(data) === "object")){
     let err = Error('Attribute type error');
     return console.log(err); //throw err???
   }
   // console.log('verifying file\'s existence...');
-  if(!fs.existsSync(path)){
+  if(!fs.existsSync(filepath)){
     // initial values
     // console.log('file doesnt exist, creating log file...');
     let dataBase = {
@@ -36,21 +39,21 @@ module.exports = function(name, data){
     }
     dataBase.activityLog.push(data);
     let iniData = JSON.stringify(dataBase);
-    fs.writeFileSync(path, iniData, 'utf8', (err) => {
+    fs.writeFileSync(filepath, iniData, 'utf8', (err) => {
       if (err) throw err;
     });
-    console.log('the log was created...');
+    // console.log('the log was created...');
   } else {
     // reading current data in file
     // console.log('file exist, updating log file...');
-    let currentData = fs.readFileSync(path, 'utf8', (err, data) => {
+    let currentData = fs.readFileSync(filepath, 'utf8', (err, data) => {
       if (err) throw err;
     });
     let obj = JSON.parse(currentData);
     obj.activityLog.push(data);
     let newData = JSON.stringify(obj);
     // updating file with new data...
-    fs.writeFileSync(path, newData, 'utf8', (err) => {
+    fs.writeFileSync(filepath, newData, 'utf8', (err) => {
       if (err) throw err;
     });
     // console.log('the log was updated...')
