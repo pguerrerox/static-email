@@ -53,9 +53,14 @@ head
             strong Detail Log
           p
             | More information about things happening on the background...
-        div
-          span #{param}
-
+          .logs#logs
+            each x in logs
+              pre.logging
+                span.log1 #{x.fecha}
+                span.log2 -[#{x.id}]-
+                span.log3 [type: #{x.type}]
+                span [website: #{x.website}]
+                span [status: #{x.status}]
   // Footer
   footer#footer
     section

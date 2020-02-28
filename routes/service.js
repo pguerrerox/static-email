@@ -17,7 +17,8 @@ module.exports = function(app){
       param: req.path,
       connectedSites: res.locals.sites,
       activityNumber: res.locals.lengthData,
-      successNumber: res.locals.successData
+      successNumber: res.locals.successData,
+      logs: prettyData.array()
     })
   })
 

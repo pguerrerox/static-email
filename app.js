@@ -57,7 +57,8 @@ fs.watch('./logs/log.json','utf8', (event, filename) => {
     io.emit('news', {
       activityNumber: prettyData.length(),
       successNumber: prettyData.success(),
-      sites: prettyData.sites()
+      sites: prettyData.sites(),
+      logArray: prettyData.array()
     })
   }
 })

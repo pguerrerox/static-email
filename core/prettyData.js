@@ -32,11 +32,19 @@ function dataSites() {
   }
   return count
 }
+function dataArray() {
+  let data = fs.readFileSync('./logs/log.json', 'utf8', (err, data) => {
+    if (err) throw err;
+  })
+  let objData = JSON.parse(data);
+  return objData.activityLog
+}
 
 dataSites();
 // exports
 module.exports = {
   length: dataLength,
   success: dataSuccess,
-  sites: dataSites
+  sites: dataSites,
+  array: dataArray
 }

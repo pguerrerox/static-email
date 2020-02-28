@@ -701,17 +701,34 @@ ul.icons li:last-child {
 }
 
 @media screen and (max-width: 480px) {
-
   #wrapper {
     max-width: calc(100% - 2em);
   }
-
 }
-
 @media screen and (max-width: 360px) {
-
   #wrapper {
     max-width: 100%;
   }
+}
 
+.logs{
+  font-size: 14px;
+  background: #F7F8FB;
+  border: #c1c1c18a 1px solid;
+  padding: 5px 15px;
+  height: 400px;
+  overflow-y: auto;
+}
+.logging{
+  display: flex;
+  margin: 0;
+}
+.log1{
+  color: #f52941;
+}
+.log2{
+  color: blueviolet;
+}
+.log3{
+  color: coral;
 }
