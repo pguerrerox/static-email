@@ -11,11 +11,15 @@
     "express": "latest",
     "localenv": "^0.2.2",
     "mailgun-js": "latest",
-    "multer": "^1.2.1",
+    "multer": "^1.4.2",
     "nodemon": "^2.0.2",
     "pug": "^2.0.4",
     "recaptcha2": "latest",
     "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "minimist": ">=0.2.1",
+    "acorn": ">=5.7.4"
   },
   "nodemonConfig": {
     "ignore": [
