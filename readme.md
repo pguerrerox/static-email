@@ -1,4 +1,4 @@
-# Static-email
+# Static-email..
 
 Small app to make contact forms on static websites (no backend) functional.
 
