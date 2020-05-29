@@ -28,7 +28,7 @@ What things you need to install the software.
 ## Deployment
 
 - send the code to your prefered platform.
-- define all the variables in your `.localenv` file on your platform
+- define all the variables in your `.env.local` file on your platform
 - DONE...
 
 ## Built With
