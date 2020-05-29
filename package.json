@@ -15,9 +15,7 @@
     "nodemon": "^2.0.2",
     "pug": "^2.0.4",
     "recaptcha2": "latest",
-    "socket.io": "^2.3.0"
-  },
-  "devDependencies": {
+    "socket.io": "^2.3.0",
     "minimist": ">=0.2.1",
     "acorn": ">=5.7.4"
   },
