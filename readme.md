@@ -1,4 +1,4 @@
-# Static-email..
+# Static-email
 
 Small app to make contact forms on static websites (no backend) functional.
 
@@ -6,7 +6,7 @@ Small app to make contact forms on static websites (no backend) functional.
 
 This application received the post request from different websites (predefined), then it process the incoming data, lastly it will send an email to the aproppriate email according to the parameters of the post request. 
 
-### Prerequisites
+## Prerequisites
 
 What things you need to install the software.
 
@@ -14,7 +14,7 @@ What things you need to install the software.
 2. Mailgun account (or any other similar service).
 3. Recaptcha account (if you are using recaptcha on the client side).
 
-### Installing
+## Installing
 
 - clone repo
 - run `npm install`
