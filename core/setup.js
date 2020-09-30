@@ -24,6 +24,10 @@ module.exports = {
     "duramente": {
       "emailto": process.env.DURAMENTE_CONTACTO_EMAIL_TO,
       "template": "duramente/contacto-duramente"
+    },
+    "meadowlands": {
+      "emailto": process.env.MEADOWLANDS_CONTACTO_EMAIL_TO,
+      "template": "rottis/contacto-meadowlands"
     }
   },
   "empleo": {

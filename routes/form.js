@@ -12,6 +12,11 @@ const aux = require('../core/aux');
 const pug = require('pug');
 
 module.exports = function(app, setup, mailgun){
+  app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
   app.post('/:type/:website', upload.single('attachFile'), function(req, res){
     recaptcha.validate(req.body["g-recaptcha-response"])
     .then(function(){
@@ -109,7 +114,6 @@ module.exports = function(app, setup, mailgun){
           });
         } else{
           myErr = {message: 'message sended successfully!'};
-          console.log(myErr.message);
           logging('log', aux.dataBuilder(website, typePOST, myErr.message));
           return res.render('status' ,{
             statusPic: '/green.png',

@@ -1,0 +1,74 @@
+html
+  head
+    style.
+      body {
+        display: block;
+        width: 85%;
+        margin: 50px auto;
+        background-color: #fff;
+      }
+      .content {
+        width: 100%;
+        min-width: 500px;
+        margin: 0 auto;
+        background-color: #2d2d2d;
+        box-shadow: 0 0 10px #000;
+        }
+      .inner {
+        width: 90%;
+        padding: 35px;
+        margin: 0 auto;
+      }
+      .content img {
+        display: block;
+        width: 250px;
+        margin: 0 auto;
+      }
+      h1, h2 {
+        text-align: center;
+        color: #f1f1f1;
+      }
+      hr {
+        border: 1px solid #c00;
+        width: 90%;
+        margin: 30px auto;
+      }
+      a {
+        color: #c00;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 1px 2px;
+      }
+      .info {
+        width: 90%;
+        margin: 20px auto;
+        padding: 25px 0;
+        background-color: #eee;
+      }
+      ul li {
+        list-style: none;
+        margin: 0 auto;
+        padding: 10px 0;
+      }
+      li:before{
+        content: "> ";
+      }
+      li span{
+        font-weight: bold;
+      }
+  body
+    .content
+      .inner
+        img(src="#" alt='logo')
+        h1
+          | Has recibido un mensaje desde:
+          br
+          a(href='http://www.meadowlandscf.com/contact') www.meadowlandscf.com/contact
+          hr
+          h1 Informacion enviada en el Formulario
+        .info
+          ul
+            li Nombre: <span>#{nombre}
+            li Email: <span>#{email}
+            li Asunto: <span>#{asunto}
+            li Mensaje: <br> <span>#{mensaje}
