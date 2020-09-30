@@ -27,7 +27,7 @@ module.exports = {
     },
     "meadowlands": {
       "emailto": process.env.MEADOWLANDS_CONTACTO_EMAIL_TO,
-      "template": "rottis/contacto-meadowlands"
+      "template": "meadowlands/contacto-meadowlands"
     }
   },
   "empleo": {
