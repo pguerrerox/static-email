@@ -27,6 +27,9 @@ module.exports = function(app, setup, mailgun){
   // *************************************************
 
   app.post('/:type/:website', upload.single('attachFile'), function(req, res){
+    //
+    // send a key on the body name testing to bypass the recaptcha promise.
+    //
     (() => { return !req.body.testing ? recaptcha.validate(req.body["g-recaptcha-response"]) : testingProm})()
     .then(function(){
       // ex. rottisrd.com/contacto/rottis
