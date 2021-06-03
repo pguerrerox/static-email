@@ -28,6 +28,10 @@ module.exports = {
     "meadowlands": {
       "emailto": process.env.MEADOWLANDS_CONTACTO_EMAIL_TO,
       "template": "meadowlands/contacto-meadowlands"
+    },
+    "expi": {
+      "emailto": process.env.EXPI_CONTACTO_EMAIL_TO,
+      "template": "expi/contacto-expi"
     }
   },
   "empleo": {
@@ -38,6 +42,10 @@ module.exports = {
     "rottis": {
       "emailto": process.env.ROTTIS_EMPLEO_EMAIL_TO,
       "template": "rottis/empleo-rottis"
+    },
+    "expi": {
+      "emailto": process.env.EXPI_EMPLEO_EMAIL_TO,
+      "template": "expi/empleo-expi"
     }
   }
 }

@@ -11,14 +11,23 @@ const upload = require('../core/upload');
 const aux = require('../core/aux');
 const pug = require('pug');
 
+const testingProm = new Promise((res, rej) => {
+  res("ok");
+})
+
 module.exports = function(app, setup, mailgun){
   app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "http://localhost:3000");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
   });
+
+  // IMPORTANT **************************************
+  // the form field input of type='file' must have an attribute name="attachFile"
+  // *************************************************
+
   app.post('/:type/:website', upload.single('attachFile'), function(req, res){
-    recaptcha.validate(req.body["g-recaptcha-response"])
+    (() => { return !req.body.testing ? recaptcha.validate(req.body["g-recaptcha-response"]) : testingProm})()
     .then(function(){
       // ex. rottisrd.com/contacto/rottis
       // ex. rottisrd.com/empleo/rottis
